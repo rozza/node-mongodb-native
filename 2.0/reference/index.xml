@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MongoDB Node.js Driver</title>
-    <link>/mongo-nodejs-driver/2.0/</link>
-    <description>Recent content on MongoDB Node.js Driver</description>
+    <title>References on MongoDB Node.js Driver</title>
+    <link>/mongo-nodejs-driver/2.0/reference/</link>
+    <description>Recent content in References on MongoDB Node.js Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 05 Aug 2015 12:00:00 +0000</lastBuildDate>
-    <atom:link href="/mongo-nodejs-driver/2.0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/mongo-nodejs-driver/2.0/reference/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>GridFS</title>
@@ -410,138 +410,6 @@ MongoClient.connect(url, function(err, db) {
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/management/logging/&#34;&gt;Logging&lt;/a&gt;: Comprehensive logging of all operations.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/management/apm/&#34;&gt;Application Performance Monitoring&lt;/a&gt;: The Application Performance Monitoring API is an API developers to tap into the commands issues to MongoDB to record performance metrics and/or inspect the commands sent to MongoDB.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Upgrading to 2.0</title>
-      <link>/mongo-nodejs-driver/2.0/whats-new/upgrading/</link>
-      <pubDate>Thu, 19 Mar 2015 12:53:39 -0400</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/whats-new/upgrading/</guid>
-      <description>
-
-&lt;h1 id=&#34;migrating-your-application-to-2-0&#34;&gt;Migrating Your Application To 2.0&lt;/h1&gt;
-
-&lt;p&gt;There are some key changes in the driver going from 1.X to 2.X that one needs to be aware off before changing your application to using the new 2.X versions. There has been some cleanup of API&amp;rsquo;s and some deprecations of 1.X features.&lt;/p&gt;
-
-&lt;h2 id=&#34;design-differences-in-2-x&#34;&gt;Design differences in 2.X&lt;/h2&gt;
-
-&lt;p&gt;One of the main changes is that the driver has been split into two pieces. There is a new &lt;code&gt;mongodb-core&lt;/code&gt; that contains the low level MongoDB API&amp;rsquo;s while &lt;code&gt;mongodb&lt;/code&gt; contains the high level driver. &lt;code&gt;mongodb-core&lt;/code&gt; is targeted to creators of libraries like &lt;code&gt;Mongoose&lt;/code&gt; and other ODM&amp;rsquo;s who do not need the abstractions available in the &lt;code&gt;mongodb&lt;/code&gt; driver. The driver is also as of the time of writing compatible with the 0.11.x node.js branch including Kerberos support as well as MongoDB 2.8.&lt;/p&gt;
-
-&lt;h2 id=&#34;changes&#34;&gt;Changes&lt;/h2&gt;
-
-&lt;p&gt;We will outline where changes have occurred that could break your existing application.&lt;/p&gt;
-
-&lt;h3 id=&#34;node-js-versions-and-streams&#34;&gt;Node.JS versions and Streams&lt;/h3&gt;
-
-&lt;p&gt;The 2.0 driver drops support for 0.8.x style streams and moves to 0.10.x or higher style pull based streams making for more reliable and faster streams. Backwards compatibility is by using the &lt;code&gt;readable-stream&lt;/code&gt; npm package that might cause some slight behavior changes for the cursor streams.&lt;/p&gt;
-
-&lt;p&gt;All dependencies have now been updated to use the &lt;code&gt;nan&lt;/code&gt; package meaning they will compile and work on 0.11.x or higher.&lt;/p&gt;
-
-&lt;h3 id=&#34;grid-object&#34;&gt;Grid Object&lt;/h3&gt;
-
-&lt;p&gt;The grid object has been removed as it&amp;rsquo;s not widely used and offers very limited GridStore capabilities.&lt;/p&gt;
-
-&lt;h3 id=&#34;db-object&#34;&gt;Db Object&lt;/h3&gt;
-
-&lt;p&gt;The db instance object have had several changes made to it. We&amp;rsquo;ve removed the following methods.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;db.dereference&lt;/code&gt; due to db references being deprecated in the server.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;db.cursorInfo&lt;/code&gt; removed as it never worked reliably.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;db.stats&lt;/code&gt; removed as inconsistent.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;db.collectionNames&lt;/code&gt; removed as it&amp;rsquo;s just a specialized version of the new &lt;code&gt;listCollections&lt;/code&gt; helper.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;db.collectionInfo&lt;/code&gt; removed as it&amp;rsquo;s not compatible with the new MongoDB 2.8 or higher alternative storage enginers.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Added the following method&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;db.listCollections&lt;/code&gt; to replace all other collection inquiry method as it will do the correct thing for MongoDB 2.8 and higher as well as provide backwards compatibility for MongoDB 2.6 or lower.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;collection-object&#34;&gt;Collection Object&lt;/h3&gt;
-
-&lt;p&gt;A collection instance has also had several changes made to it. Most importantly we now return the &lt;code&gt;mongodb-core&lt;/code&gt; result objects directly with all the associated information returned from the server instead of the current selective information returned in the 1.4.x version.&lt;/p&gt;
-
-&lt;p&gt;We&amp;rsquo;ve added the following new methods&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;collection.insertOne&lt;/code&gt; Insert a single document.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.insertMany&lt;/code&gt; Insert an array of documents.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.replaceOne&lt;/code&gt; Replace an existing document fully.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.updateOne&lt;/code&gt; Update a single document.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.updateMany&lt;/code&gt; Update multiple documents in one go.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.deleteOne&lt;/code&gt; Delete a single document.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.deleteMany&lt;/code&gt; Delete multiple documents in one go.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.findOneAndUpdate&lt;/code&gt; Use findAndModify to update a document.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.findOneAndDelete&lt;/code&gt; Use findAndModify to remove a specific document.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;collection.findOneAndReplace&lt;/code&gt; Use findAndModify to replace a specific document.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The current &lt;code&gt;insert&lt;/code&gt;, &lt;code&gt;update&lt;/code&gt; and &lt;code&gt;remove&lt;/code&gt; methods are marked for deprecation and will be removed in a future 3.0 driver. These 3 methods now also return the full &lt;code&gt;mongodb-core&lt;/code&gt; results and have had their third return value removed to ensure less compatibility problems with orchestration libraries like &lt;code&gt;async&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The insert methods are now capping at the &lt;code&gt;maxWriteBatchSize&lt;/code&gt; passed back from MongoDB on the results from the &lt;code&gt;ismaster&lt;/code&gt; command. For MongoDB 2.4 or lower this means a max of 1000 documents in each insert batch. Legacy insert mode has been deprecated in favor of proper emulation of current 2.6 or higher write commands.&lt;/p&gt;
-
-&lt;p&gt;Another important change is in how &lt;code&gt;collection.find&lt;/code&gt; works. The idea is to chain commands instead of passing them into the &lt;code&gt;find&lt;/code&gt; method. It still supports existing behavior from 1.4 so no code should break but the API documentation reflects the new preferred way to use the find to execute queries.&lt;/p&gt;
-
-&lt;h3 id=&#34;gridstore&#34;&gt;GridStore&lt;/h3&gt;
-
-&lt;p&gt;The GridStore object has had some major changes due to issues discovered by users related to parallel writing using the previous available &lt;code&gt;w+&lt;/code&gt; append mode. Thus &lt;code&gt;w+&lt;/code&gt; in 2.0 only allows for changes to the file metadata and does not allow for appending to a file avoiding the possible data corruption. The hope is to create a new GridStore spec in the future that allows for proper handling parallel writing to an existing file but this requires changes for all drivers as well as the server.&lt;/p&gt;
-
-&lt;h3 id=&#34;mongoclient&#34;&gt;MongoClient&lt;/h3&gt;
-
-&lt;p&gt;MongoClient now only has the class method &lt;code&gt;connect&lt;/code&gt;. Constructing of a new MongoClient using &lt;code&gt;Server&lt;/code&gt;, &lt;code&gt;ReplSet&lt;/code&gt; or &lt;code&gt;Mongos&lt;/code&gt; has been removed due to the confusion it caused in duplicating the way one can build a topology connection using &lt;code&gt;Db&lt;/code&gt; in 1.4. &lt;code&gt;MongoClient.connect&lt;/code&gt; is the recommended way to connect to a MongoDB topology.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>What&#39;s New</title>
-      <link>/mongo-nodejs-driver/2.0/whats-new/</link>
-      <pubDate>Thu, 19 Mar 2015 12:53:35 -0400</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/whats-new/</guid>
-      <description>
-
-&lt;h1 id=&#34;what-s-new-in-2-0&#34;&gt;What&amp;rsquo;s New in 2.0&lt;/h1&gt;
-
-&lt;p&gt;Key features of the 2.0 driver include:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Adherence to the SDAM (Server Discovery and Monitoring Specification).&lt;/li&gt;
-&lt;li&gt;Implementation of the CRUD Specification.&lt;/li&gt;
-&lt;li&gt;Performance improvements.&lt;/li&gt;
-&lt;li&gt;New JS-BSON parser that supplants the C++ extension.&lt;/li&gt;
-&lt;li&gt;A new core driver on top of which you can build alternative or experimental driver APIs&lt;/li&gt;
-&lt;li&gt;APM (Application Performance Monitoring) API.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/mongodb/node-mongodb-native/blob/2.0/HISTORY.md&#34;&gt;Driver revision history&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;upgrading&#34;&gt;Upgrading&lt;/h2&gt;
-
-&lt;p&gt;See the &lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/whats-new/upgrading/&#34;&gt;upgrading guide&lt;/a&gt; on how to upgrade to 2.0&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Connecting</title>
-      <link>/mongo-nodejs-driver/2.0/reference/connecting/</link>
-      <pubDate>Thu, 19 Mar 2015 12:53:30 -0400</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/reference/connecting/</guid>
-      <description>
-
-&lt;h2 id=&#34;connecting&#34;&gt;Connecting&lt;/h2&gt;
-
-&lt;p&gt;The reference documentation for connecting to a MongoDB server deployment is divided into three sections:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/connection-settings/&#34;&gt;Connection Settings&lt;/a&gt;: documentation of the various ways to specify the properties of a connection&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/authenticating/&#34;&gt;Authenticating&lt;/a&gt;: detailed documentation of the various ways to specify authentication credentials&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/ssl/&#34;&gt;SSL&lt;/a&gt;: Detailed documentation of the various ways to specify the properties of an SSL connection&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -1066,6 +934,26 @@ MongoClient.connect(url, function(err, db) {
     </item>
     
     <item>
+      <title>Connecting</title>
+      <link>/mongo-nodejs-driver/2.0/reference/connecting/</link>
+      <pubDate>Thu, 19 Mar 2015 12:53:30 -0400</pubDate>
+      
+      <guid>/mongo-nodejs-driver/2.0/reference/connecting/</guid>
+      <description>
+
+&lt;h2 id=&#34;connecting&#34;&gt;Connecting&lt;/h2&gt;
+
+&lt;p&gt;The reference documentation for connecting to a MongoDB server deployment is divided into three sections:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/connection-settings/&#34;&gt;Connection Settings&lt;/a&gt;: documentation of the various ways to specify the properties of a connection&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/authenticating/&#34;&gt;Authenticating&lt;/a&gt;: detailed documentation of the various ways to specify authentication credentials&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/ssl/&#34;&gt;SSL&lt;/a&gt;: Detailed documentation of the various ways to specify the properties of an SSL connection&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Connection Settings</title>
       <link>/mongo-nodejs-driver/2.0/reference/connecting/connection-settings/</link>
       <pubDate>Thu, 19 Mar 2015 12:53:30 -0400</pubDate>
@@ -1326,197 +1214,6 @@ MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
 &lt;li&gt;&lt;code&gt;socketOptions.keepAlive&lt;/code&gt;, {Number, default: 0} TCP KeepAlive on the socket with a X ms delay before start.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;socketOptions.connectTimeoutMS&lt;/code&gt;, {Number, default: 0} TCP Connection timeout setting.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;socketOptions.socketTimeoutMS&lt;/code&gt;, {Number, default: 0} TCP Socket timeout setting.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you are connecting to a MongoDB replicaset, you pass the parameters using the &lt;code&gt;mongos&lt;/code&gt; options field.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
-  mongos: {
-      sslKey:key
-    , sslCert:cert
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>SSL</title>
-      <link>/mongo-nodejs-driver/2.0/reference/connecting/ssl/</link>
-      <pubDate>Thu, 19 Mar 2015 12:53:26 -0400</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/reference/connecting/ssl/</guid>
-      <description>
-
-&lt;h1 id=&#34;ssl&#34;&gt;SSL&lt;/h1&gt;
-
-&lt;p&gt;The Node.js driver supports SSL connections to MongoDB when using the Enterprise edition off MongoDB or the open source edition with SSL support compiled in.&lt;/p&gt;
-
-&lt;h2 id=&#34;no-validation-of-certificate-chain&#34;&gt;No validation of certificate chain&lt;/h2&gt;
-
-&lt;p&gt;If the server does not perform any validation of the certificate chain connecting to the server is straightforward.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient;
-
-MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;driver-should-validate-server-certificate&#34;&gt;Driver should validate Server certificate&lt;/h2&gt;
-
-&lt;p&gt;If the server presents a certificate that we wish to validate client side we need a couple more parameters.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-// Read the certificate authority
-var ca = [fs.readFileSync(__dirname + &amp;quot;/ssl/ca.pem&amp;quot;)];
-
-// Connect validating the returned certificates from the server
-MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, {
-  server: {
-      sslValidate:true
-    , sslCA:ca
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;driver-should-validate-server-certificate-and-present-valid-certificate&#34;&gt;Driver should validate Server certificate and present valid Certificate&lt;/h2&gt;
-
-&lt;p&gt;If the server is configured to perform certificate validation we need to pass a certificate through the driver as well as verify the one retrieved. In this case our certificate password is &lt;code&gt;10gen&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-// Read the certificate authority
-var ca = [fs.readFileSync(__dirname + &amp;quot;/ssl/ca.pem&amp;quot;)];
-var cert = fs.readFileSync(__dirname + &amp;quot;/ssl/client.pem&amp;quot;);
-var key = fs.readFileSync(__dirname + &amp;quot;/ssl/client.pem&amp;quot;);
-
-// Connect validating the returned certificates from the server
-MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, {
-  server: {
-      sslValidate:true
-    , sslCA:ca
-    , sslKey:key
-    , sslCert:cert
-    , sslPass:&#39;10gen&#39;
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;connecting-using-x509&#34;&gt;Connecting using X509&lt;/h2&gt;
-
-&lt;p&gt;X509 is a certification validation process similar to normal SSL validation but it also includes specific user information that can be used for authorization. Connecting is very similar to the previous SSL examples.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-// Read the cert and key
-var cert = fs.readFileSync(__dirname + &amp;quot;/ssl/x509/client.pem&amp;quot;);
-var key = fs.readFileSync(__dirname + &amp;quot;/ssl/x509/client.pem&amp;quot;);
-
-// User name
-var userName = &amp;quot;CN=client,OU=kerneluser,O=10Gen,L=New York City,ST=New York,C=US&amp;quot;;
-
-// Connect using the MONGODB-X509 authentication mechanism
-MongoClient.connect(f(&#39;mongodb://%s@server:27017/test?authMechanism=%s&amp;amp;ssl=true&#39;
-    , encodeURIComponent(userName), &#39;MONGODB-X509&#39;), {
-  server: {
-      sslKey:key
-    , sslCert:cert
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;topology-options-related-to-ssl&#34;&gt;Topology Options Related to SSL&lt;/h2&gt;
-
-&lt;h3 id=&#34;individual-server-level-options&#34;&gt;Individual Server Level Options&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you are connecting to a single MongoDB instance you pass the parameters using the &lt;code&gt;server&lt;/code&gt; options field.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
-  server: {
-      sslKey:key
-    , sslCert:cert
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;replicaset-level-options&#34;&gt;Replicaset Level Options&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you are connecting to a MongoDB replicaset, you pass the parameters using the &lt;code&gt;replset&lt;/code&gt; options field.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
-  f = require(&#39;util&#39;).format,
-  fs = require(&#39;fs&#39;);
-
-MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
-  replset: {
-      sslKey:key
-    , sslCert:cert
-  }
-}, function(err, db) {
-  db.close();
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;mongos-proxy-level-options&#34;&gt;Mongos Proxy Level Options&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;If you are connecting to a MongoDB replicaset, you pass the parameters using the &lt;code&gt;mongos&lt;/code&gt; options field.&lt;/p&gt;
@@ -2006,6 +1703,197 @@ listener.on(&#39;failed&#39;, function(event) {
     </item>
     
     <item>
+      <title>SSL</title>
+      <link>/mongo-nodejs-driver/2.0/reference/connecting/ssl/</link>
+      <pubDate>Thu, 19 Mar 2015 12:53:26 -0400</pubDate>
+      
+      <guid>/mongo-nodejs-driver/2.0/reference/connecting/ssl/</guid>
+      <description>
+
+&lt;h1 id=&#34;ssl&#34;&gt;SSL&lt;/h1&gt;
+
+&lt;p&gt;The Node.js driver supports SSL connections to MongoDB when using the Enterprise edition off MongoDB or the open source edition with SSL support compiled in.&lt;/p&gt;
+
+&lt;h2 id=&#34;no-validation-of-certificate-chain&#34;&gt;No validation of certificate chain&lt;/h2&gt;
+
+&lt;p&gt;If the server does not perform any validation of the certificate chain connecting to the server is straightforward.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient;
+
+MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;driver-should-validate-server-certificate&#34;&gt;Driver should validate Server certificate&lt;/h2&gt;
+
+&lt;p&gt;If the server presents a certificate that we wish to validate client side we need a couple more parameters.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+// Read the certificate authority
+var ca = [fs.readFileSync(__dirname + &amp;quot;/ssl/ca.pem&amp;quot;)];
+
+// Connect validating the returned certificates from the server
+MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, {
+  server: {
+      sslValidate:true
+    , sslCA:ca
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;driver-should-validate-server-certificate-and-present-valid-certificate&#34;&gt;Driver should validate Server certificate and present valid Certificate&lt;/h2&gt;
+
+&lt;p&gt;If the server is configured to perform certificate validation we need to pass a certificate through the driver as well as verify the one retrieved. In this case our certificate password is &lt;code&gt;10gen&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+// Read the certificate authority
+var ca = [fs.readFileSync(__dirname + &amp;quot;/ssl/ca.pem&amp;quot;)];
+var cert = fs.readFileSync(__dirname + &amp;quot;/ssl/client.pem&amp;quot;);
+var key = fs.readFileSync(__dirname + &amp;quot;/ssl/client.pem&amp;quot;);
+
+// Connect validating the returned certificates from the server
+MongoClient.connect(&amp;quot;mongodb://localhost:27017/test?ssl=true&amp;quot;, {
+  server: {
+      sslValidate:true
+    , sslCA:ca
+    , sslKey:key
+    , sslCert:cert
+    , sslPass:&#39;10gen&#39;
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;connecting-using-x509&#34;&gt;Connecting using X509&lt;/h2&gt;
+
+&lt;p&gt;X509 is a certification validation process similar to normal SSL validation but it also includes specific user information that can be used for authorization. Connecting is very similar to the previous SSL examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+// Read the cert and key
+var cert = fs.readFileSync(__dirname + &amp;quot;/ssl/x509/client.pem&amp;quot;);
+var key = fs.readFileSync(__dirname + &amp;quot;/ssl/x509/client.pem&amp;quot;);
+
+// User name
+var userName = &amp;quot;CN=client,OU=kerneluser,O=10Gen,L=New York City,ST=New York,C=US&amp;quot;;
+
+// Connect using the MONGODB-X509 authentication mechanism
+MongoClient.connect(f(&#39;mongodb://%s@server:27017/test?authMechanism=%s&amp;amp;ssl=true&#39;
+    , encodeURIComponent(userName), &#39;MONGODB-X509&#39;), {
+  server: {
+      sslKey:key
+    , sslCert:cert
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;topology-options-related-to-ssl&#34;&gt;Topology Options Related to SSL&lt;/h2&gt;
+
+&lt;h3 id=&#34;individual-server-level-options&#34;&gt;Individual Server Level Options&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are connecting to a single MongoDB instance you pass the parameters using the &lt;code&gt;server&lt;/code&gt; options field.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
+  server: {
+      sslKey:key
+    , sslCert:cert
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;replicaset-level-options&#34;&gt;Replicaset Level Options&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are connecting to a MongoDB replicaset, you pass the parameters using the &lt;code&gt;replset&lt;/code&gt; options field.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
+  replset: {
+      sslKey:key
+    , sslCert:cert
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;mongos-proxy-level-options&#34;&gt;Mongos Proxy Level Options&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;, {Boolean, default: false} Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslValidate&lt;/code&gt;, {Boolean, default: true} Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCA&lt;/code&gt;, {Buffer[]|string[], default: null} Array of valid certificates either as Buffers or Strings (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslCert&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslKey&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate private key we wish to present (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sslPass&lt;/code&gt;, {Buffer|string, default: null} String or buffer containing the certificate password (needs to have a mongod server with ssl support, 2.4 or higher).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are connecting to a MongoDB replicaset, you pass the parameters using the &lt;code&gt;mongos&lt;/code&gt; options field.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient,
+  f = require(&#39;util&#39;).format,
+  fs = require(&#39;fs&#39;);
+
+MongoClient.connect(f(&#39;mongodb://%s@server:27017/test&#39;), {
+  mongos: {
+      sslKey:key
+    , sslCert:cert
+  }
+}, function(err, db) {
+  db.close();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Logging</title>
       <link>/mongo-nodejs-driver/2.0/reference/management/logging/</link>
       <pubDate>Wed, 18 Mar 2015 21:14:20 -0400</pubDate>
@@ -2141,339 +2029,24 @@ MongoClient.connect(url, function(err, db) {
     </item>
     
     <item>
-      <title>Issues &amp; Help</title>
-      <link>/mongo-nodejs-driver/2.0/issues-help/</link>
-      <pubDate>Wed, 18 Mar 2015 16:56:14 +0000</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/issues-help/</guid>
-      <description>
-
-&lt;h1 id=&#34;issues-help&#34;&gt;Issues &amp;amp; Help&lt;/h1&gt;
-
-&lt;p&gt;We are lucky to have a vibrant MongoDB Java community with lots of varying
-experience of using the Java driver.  We often find the quickest way to get support for
-general questions is through the &lt;a href=&#34;http://groups.google.com/group/mongodb-user&#34;&gt;mongodb-user google group&lt;/a&gt;
-or through &lt;a href=&#34;http://stackoverflow.com/questions/tagged/mongodb+java&#34;&gt;stackoverflow&lt;/a&gt;.  Please also
-refer to our own &lt;a href=&#34;http://www.mongodb.org/about/support&#34;&gt;support channels&lt;/a&gt; documentation.&lt;/p&gt;
-
-&lt;h2 id=&#34;bugs-feature-requests&#34;&gt;Bugs / Feature Requests&lt;/h2&gt;
-
-&lt;p&gt;If you think you’ve found a bug or want to see a new feature in the Java driver,
-please open a case in our issue management tool, JIRA:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://jira.mongodb.org&#34;&gt;Create an account and login&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Navigate to &lt;a href=&#34;https://jira.mongodb.org/browse/NODE&#34;&gt;the NODE project&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;Create Issue&lt;/strong&gt; - Please provide as much information as possible about the issue type and how to reproduce it.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bug reports in JIRA for the Node.js driver and the Core Server (i.e. SERVER) project are &lt;strong&gt;public&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you’ve identified a security vulnerability in a driver or any other
-MongoDB project, please report it according to the &lt;a href=&#34;http://docs.mongodb.org/manual/tutorial/create-a-vulnerability-report&#34;&gt;instructions here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;pull-requests&#34;&gt;Pull Requests&lt;/h2&gt;
-
-&lt;p&gt;We are happy to accept contributions to help improve the driver.
-We will guide user contributions to ensure they meet the standards of the codebase.
-Please ensure that any pull requests include documentation, tests and also pass
-a the gradle checks.&lt;/p&gt;
-
-&lt;p&gt;To get started check out the source and work on a branch:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/mongodb/node-mongodb-native.git
-$ cd node-mongodb-native
-$ npm install
-$ git checkout -b myNewFeature
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ensure you code passes the test suite. Before running the test suite make sure you have the &lt;code&gt;mongod&lt;/code&gt; executable on your current path.&lt;/p&gt;
-
-&lt;p&gt;Run the functional test suite.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ node test/runner.js -t functional
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Quick Tour</title>
-      <link>/mongo-nodejs-driver/2.0/getting-started/quick-tour/</link>
+      <title>Reference</title>
+      <link>/mongo-nodejs-driver/2.0/reference/</link>
       <pubDate>Tue, 17 Mar 2015 15:36:56 +0000</pubDate>
       
-      <guid>/mongo-nodejs-driver/2.0/getting-started/quick-tour/</guid>
+      <guid>/mongo-nodejs-driver/2.0/reference/</guid>
       <description>
 
-&lt;h1 id=&#34;quickstart&#34;&gt;QuickStart&lt;/h1&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
 
-&lt;p&gt;The quick start guide will show you how to set up a simple application using node.js and MongoDB. It scope is only how to set up the driver and perform the simple crud operations. For more inn depth coverage we encourage reading the tutorials.&lt;/p&gt;
-
-&lt;h2 id=&#34;installing-mongodb-node-js-driver-using-npm&#34;&gt;Installing MongoDB Node.js driver using NPM&lt;/h2&gt;
-
-&lt;p&gt;Installing the MongoDB Node.js driver using NPM is very easy. First you need to ensure you have Node.js and NPM correctly set up and in your path. Installing the driver is as easy as.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;npm install mongodb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;create-the-package-json-file&#34;&gt;Create the package.json file&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s create a directory where our application will live. In our case we will put this under our projects directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir myproject
-cd myproject
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Enter the following command and answer the questions to create the initial structure for your new project&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm init
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next we install the driver dependency.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm install mongodb --save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see &lt;strong&gt;NPM&lt;/strong&gt; download a lot of files. Once it&amp;rsquo;s done you&amp;rsquo;ll find all the downloaded packages under the &lt;strong&gt;node_modules&lt;/strong&gt; directory.&lt;/p&gt;
-
-&lt;h2 id=&#34;booting-up-a-mongodb-server&#34;&gt;Booting up a MongoDB Server&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s boot up a MongoDB server instance. Download the right MongoDB version from &lt;a href=&#34;http://www.mongodb.org&#34;&gt;MongoDB&lt;/a&gt;, open a new shell or command line and ensure the &lt;strong&gt;mongod&lt;/strong&gt; command is in the shell or command line path. Now let&amp;rsquo;s create a database directory (in our case under &lt;strong&gt;/data&lt;/strong&gt;).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mongod --dbpath=/data --port 27017
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see the &lt;strong&gt;mongod&lt;/strong&gt; process start up and print some status information.&lt;/p&gt;
-
-&lt;h2 id=&#34;connecting-to-mongodb&#34;&gt;Connecting to MongoDB&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s create a new &lt;strong&gt;app.js&lt;/strong&gt; file that we will use to show the basic CRUD operations using the MongoDB driver.&lt;/p&gt;
-
-&lt;p&gt;First let&amp;rsquo;s add code to connect to the server and the database &lt;strong&gt;myproject&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient
-  , assert = require(&#39;assert&#39;);
-
-// Connection URL
-var url = &#39;mongodb://localhost:27017/myproject&#39;;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&amp;quot;Connected correctly to server&amp;quot;);
-
-  db.close();
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Given that you booted up the &lt;strong&gt;mongod&lt;/strong&gt; process earlier the application should connect successfully and print &lt;strong&gt;Connected correctly to server&lt;/strong&gt; to the console.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s Add some code to show the different CRUD operations available.&lt;/p&gt;
-
-&lt;h2 id=&#34;inserting-a-document&#34;&gt;Inserting a Document&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s create a function that will insert some documents for us.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var insertDocuments = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection(&#39;documents&#39;);
-  // Insert some documents
-  collection.insertMany([
-    {a : 1}, {a : 2}, {a : 3}
-  ], function(err, result) {
-    assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log(&amp;quot;Inserted 3 documents into the document collection&amp;quot;);
-    callback(result);
-  });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The insert command will return a results object that contains several fields that might be useful.&lt;/p&gt;
+&lt;p&gt;The reference documentation for the Java driver focuses on high-level documentation and use-cases. The Javadoc-generated API reference is
+&lt;a href=&#34;http://api.mongodb.org/java/3.0/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;result&lt;/strong&gt; Contains the result document from MongoDB&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ops&lt;/strong&gt; Contains the documents inserted with added &lt;strong&gt;_id&lt;/strong&gt; fields&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;connection&lt;/strong&gt; Contains the connection used to perform the insert&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/connecting/&#34;&gt;Connecting&lt;/a&gt;: Documentation of the driver&amp;rsquo;s support for connecting to MongoDB servers&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/crud/&#34;&gt;CRUD&lt;/a&gt;: Documentation of the driver&amp;rsquo;s support for CRUD operations&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/management/&#34;&gt;Management&lt;/a&gt;: Documentation of the driver&amp;rsquo;s support for logging and monitoring of its
+internal state&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;Let&amp;rsquo;s add call the &lt;strong&gt;insertDocuments&lt;/strong&gt; command to the &lt;strong&gt;MongoClient.connect&lt;/strong&gt; method callback.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient
-  , assert = require(&#39;assert&#39;);
-
-// Connection URL
-var url = &#39;mongodb://localhost:27017/myproject&#39;;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&amp;quot;Connected correctly to server&amp;quot;);
-
-  insertDocuments(db, function() {
-    db.close();
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can now run the update &lt;strong&gt;app.js&lt;/strong&gt; file.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;node app.js
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see the following output after running the &lt;strong&gt;app.js&lt;/strong&gt; file.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Connected correctly to server
-Inserted 3 documents into the document collection
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;updating-a-document&#34;&gt;Updating a document&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s look at how to do a simple document update by adding a new field &lt;strong&gt;b&lt;/strong&gt; to the document that has the field &lt;strong&gt;a&lt;/strong&gt; set to &lt;strong&gt;2&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var updateDocument = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection(&#39;documents&#39;);
-  // Update document where a is 2, set b equal to 1
-  collection.updateOne({ a : 2 }
-    , { $set: { b : 1 } }, function(err, result) {
-    assert.equal(err, null);
-    assert.equal(1, result.result.n);
-    console.log(&amp;quot;Updated the document with the field a equal to 2&amp;quot;);
-    callback(result);
-  });  
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The method will update the first document where the field &lt;strong&gt;a&lt;/strong&gt; is equal to &lt;strong&gt;2&lt;/strong&gt; by adding a new field &lt;strong&gt;b&lt;/strong&gt; to the document set to &lt;strong&gt;1&lt;/strong&gt;. Let&amp;rsquo;s update the callback function from &lt;strong&gt;MongoClient.connect&lt;/strong&gt; to include the update method.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient
-  , assert = require(&#39;assert&#39;);
-
-// Connection URL
-var url = &#39;mongodb://localhost:27017/myproject&#39;;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&amp;quot;Connected correctly to server&amp;quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      db.close();
-    });
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;remove-a-document&#34;&gt;Remove a document&lt;/h2&gt;
-
-&lt;p&gt;Next lets remove the document where the field &lt;strong&gt;a&lt;/strong&gt; equals to &lt;strong&gt;3&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var removeDocument = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection(&#39;documents&#39;);
-  // Insert some documents
-  collection.deleteOne({ a : 3 }, function(err, result) {
-    assert.equal(err, null);
-    assert.equal(1, result.result.n);
-    console.log(&amp;quot;Removed the document with the field a equal to 3&amp;quot;);
-    callback(result);
-  });    
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will remove the first document where the field &lt;strong&gt;a&lt;/strong&gt; equals to &lt;strong&gt;3&lt;/strong&gt;. Let&amp;rsquo;s add the method to the &lt;strong&gt;MongoClient.connect&lt;/strong&gt; callback function.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient
-  , assert = require(&#39;assert&#39;);
-
-// Connection URL
-var url = &#39;mongodb://localhost:27017/myproject&#39;;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&amp;quot;Connected correctly to server&amp;quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      removeDocument(db, function() {
-        db.close();
-      });
-    });
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Finally let&amp;rsquo;s retrieve all the documents using a simple find.&lt;/p&gt;
-
-&lt;h2 id=&#34;find-all-documents&#34;&gt;Find All Documents&lt;/h2&gt;
-
-&lt;p&gt;We will finish up the Quickstart CRUD methods by performing a simple query that returns all the documents matching the query.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var findDocuments = function(db, callback) {
-  // Get the documents collection
-  var collection = db.collection(&#39;documents&#39;);
-  // Find some documents
-  collection.find({}).toArray(function(err, docs) {
-    assert.equal(err, null);
-    assert.equal(2, docs.length);
-    console.log(&amp;quot;Found the following records&amp;quot;);
-    console.dir(docs)
-    callback(docs);
-  });      
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This query will return all the documents in the &lt;strong&gt;documents&lt;/strong&gt; collection. Since we removed a document the total documents returned is &lt;strong&gt;2&lt;/strong&gt;. Finally let&amp;rsquo;s add the findDocument method to the &lt;strong&gt;MongoClient.connect&lt;/strong&gt; callback.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var MongoClient = require(&#39;mongodb&#39;).MongoClient
-  , assert = require(&#39;assert&#39;);
-
-// Connection URL
-var url = &#39;mongodb://localhost:27017/myproject&#39;;
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log(&amp;quot;Connected correctly to server&amp;quot;);
-
-  insertDocuments(db, function() {
-    updateDocument(db, function() {
-      removeDocument(db, function() {
-        findDocuments(db, function() {
-          db.close();
-        });
-      });
-    });
-  });
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This concludes the QuickStart of connecting and performing some Basic operations using the MongoDB Node.js driver. For more detailed information you can look at the tutorials covering more specific topics of interest.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>index</title>
-      <link>/mongo-nodejs-driver/2.0/</link>
-      <pubDate>Tue, 17 Mar 2015 15:36:56 +0000</pubDate>
-      
-      <guid>/mongo-nodejs-driver/2.0/</guid>
-      <description>
-
-&lt;h2 id=&#34;mongodb-node-js-driver-documentation&#34;&gt;MongoDB Node.js Driver Documentation&lt;/h2&gt;
-
-&lt;p&gt;Welcome to the MongoDB Node.js 2.x driver documentation.&lt;/p&gt;
-
-&lt;h3 id=&#34;what-s-new-in-2-0&#34;&gt;What&amp;rsquo;s New in 2.0&lt;/h3&gt;
-
-&lt;p&gt;The &lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/whats-new/&#34;&gt;What&amp;rsquo;s New&lt;/a&gt; guide explains the major new features of the driver.&lt;/p&gt;
-
-&lt;p&gt;If you are upgrading from the 1.x series of the driver, consult the &lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/whats-new/upgrading/&#34;&gt;Upgrading&lt;/a&gt; documentation for
-information on breaking changes.&lt;/p&gt;
-
-&lt;h3 id=&#34;mongodb-driver&#34;&gt;MongoDB Driver&lt;/h3&gt;
-
-&lt;p&gt;For MongoDB Driver, the &lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/getting-started/&#34;&gt;Getting Started&lt;/a&gt; guide contains
-installation instructions and a simple tutorial to get up  and running quickly. For more detailed documentation, see the
-&lt;a href=&#34;/mongo-nodejs-driver/2.0/mongo-nodejs-driver/2.0/reference/&#34;&gt;Reference&lt;/a&gt; guide.&lt;/p&gt;
 </description>
     </item>
     

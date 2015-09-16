@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/mongo-nodejs-driver/2.0/img/favicon.png">
 
-    <title>Issues &amp; Help</title>
+    <title>Authenticating</title>
 
     <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -322,200 +322,50 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
 
-
-        
-          
+  
+    
+    
+    
+      
+      
+      
         
       
     
     
+  
+  
+
+
+        
       
+    
     
   
 
 
         
-          
-        
       
     
       
       
         
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -562,17 +412,6 @@
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
   
 
 
@@ -760,16 +599,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/mongo-nodejs-driver/2.0/reference/" class="">
       <i class='fa fa-book'></i>
       <span>Reference</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -787,16 +628,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l2 ">
+
+<li class="toctree-l2  current">
   <a href="/mongo-nodejs-driver/2.0/reference/connecting/" class="">
       <i class='fa'></i>
       <span>Connecting</span>
       
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -871,6 +714,8 @@
 
 
 
+
+  
 
 
 
@@ -1147,8 +992,6 @@
 
 
 
-  
-
 
 
 
@@ -1236,7 +1079,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/issues-help.md" target="_blank" title="Edit issues-help.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/reference/connecting/authenticating.md" target="_blank" title="Edit reference/connecting/authenticating.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1253,60 +1096,182 @@
   
   
   
-  
-  
-  <li>Issues &amp; Help</li>
+  <li><a href="/mongo-nodejs-driver/2.0/reference/">Reference</a> <i class="fa fa-angle-right"></i></li>
+  <li><a href="/mongo-nodejs-driver/2.0/reference/connecting/">Connecting</a> <i class="fa fa-angle-right"></i></li>
+  <li>Authenticating</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="issues-help">Issues &amp; Help</h1>
+<h1 id="authentication">Authentication</h1>
 
-<p>We are lucky to have a vibrant MongoDB Java community with lots of varying
-experience of using the Java driver.  We often find the quickest way to get support for
-general questions is through the <a href="http://groups.google.com/group/mongodb-user">mongodb-user google group</a>
-or through <a href="http://stackoverflow.com/questions/tagged/mongodb+java">stackoverflow</a>.  Please also
-refer to our own <a href="http://www.mongodb.org/about/support">support channels</a> documentation.</p>
+<p>The Node.js driver supports all MongoDB <a href="http://docs.mongodb.org/manual/core/authentication/">authentication mechanisms</a>, including those
+only available in the MongoDB <a href="http://docs.mongodb.org/manual/administration/install-enterprise/">Enterprise Edition</a>.</p>
 
-<h2 id="bugs-feature-requests">Bugs / Feature Requests</h2>
+<p><div class="admonition note">
+<h5 class="admonition-title">Note</h5>
+<p>MongoDB 3.0 changed the default authentication mechanism from
+<a href="http://docs.mongodb.org/manual/core/authentication/#mongodb-cr-authentication">MONGODB-CR</a> to
+<a href="http://docs.mongodb.org/manual/core/authentication/#scram-sha-1-authentication">SCRAM-SHA-1</a>.</p>
 
-<p>If you think you’ve found a bug or want to see a new feature in the Java driver,
-please open a case in our issue management tool, JIRA:</p>
+</div>
+</p>
 
-<ul>
-<li><a href="https://jira.mongodb.org">Create an account and login</a>.</li>
-<li>Navigate to <a href="https://jira.mongodb.org/browse/NODE">the NODE project</a>.</li>
-<li>Click <strong>Create Issue</strong> - Please provide as much information as possible about the issue type and how to reproduce it.</li>
-</ul>
+<h2 id="scram-sha-1">SCRAM-SHA-1</h2>
 
-<p>Bug reports in JIRA for the Node.js driver and the Core Server (i.e. SERVER) project are <strong>public</strong>.</p>
+<p>To explicitly connect to MongoDB using <a href="http://docs.mongodb .org/manual/core/authentication/#scram-sha-1-authentication">SCRAM-SHA-1</a>, we pass the following parameters to the driver over the connection URI.</p>
 
-<p>If you’ve identified a security vulnerability in a driver or any other
-MongoDB project, please report it according to the <a href="http://docs.mongodb.org/manual/tutorial/create-a-vulnerability-report">instructions here</a>.</p>
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
 
-<h2 id="pull-requests">Pull Requests</h2>
+// Connection URL
+var url = 'mongodb://dave:password@localhost:27017?authMechanism=SCRAM-SHA-1&amp;authSource=db';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
 
-<p>We are happy to accept contributions to help improve the driver.
-We will guide user contributions to ensure they meet the standards of the codebase.
-Please ensure that any pull requests include documentation, tests and also pass
-a the gradle checks.</p>
-
-<p>To get started check out the source and work on a branch:</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/mongodb/node-mongodb-native.git
-$ cd node-mongodb-native
-$ npm install
-$ git checkout -b myNewFeature
+  db.close();
+});
 </code></pre>
 
-<p>Ensure you code passes the test suite. Before running the test suite make sure you have the <code>mongod</code> executable on your current path.</p>
+<p>The URI uses the authMechanism <code>SCRAM-SHA-1</code> with the user <code>dave</code> and password <code>password</code> against the database <code>db</code>.</p>
 
-<p>Run the functional test suite.</p>
+<h2 id="mongodb-cr">MONGODB-CR</h2>
 
-<pre><code class="language-bash">$ node test/runner.js -t functional
+<p>To explicitly create a credential of type <a href="http://docs.mongodb.org/manual/core/authentication/#mongodb-cr-authentication">MONGODB-CR</a>, we pass the following parameters to the driver over the connection URI.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://dave:password@localhost:27017?authMechanism=MONGODB-CR&amp;authSource=db';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  db.close();
+});
 </code></pre>
+
+<p>The URI uses the authMechanism <code>MONGODB-CR</code> with the user <code>dave</code> and password <code>password</code> against the database <code>db</code>.</p>
+
+<p><div class="admonition important">
+<h5 class="admonition-title">important</h5>
+<p>If you specify the <code>MONGODB-CR</code> authMechanism the authentication might fail once you upgrade MongoDB to 3.0 or higher due to new users only being created using the <code>SCRAM-SHA-1</code> mechanism.</p>
+
+</div>
+</p>
+
+<h2 id="x509">X509</h2>
+
+<p>The <a href="http://docs.mongodb.org/manual/core/authentication/#x-509-certificate-authentication">x.509</a> mechanism authenticates a user
+whose name is derived from the distinguished subject name of the X.509 certificate presented by the driver during SSL negotiation. This
+authentication method requires the use of SSL connections with certificate validation and is available in MongoDB 2.6 and newer.</p>
+
+<p>The example below shows how you connect using a X509 certificate using <code>MongoClient</code>. We assume that the <code>client.pem</code> file here is a valid X509 certificate and that the MongoDB server is correctly configured.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
+
+// Read the cert and key
+var cert = fs.readFileSync(__dirname + &quot;/ssl/x509/client.pem&quot;);
+var key = fs.readFileSync(__dirname + &quot;/ssl/x509/client.pem&quot;);
+
+// User name
+var userName = encodeURIComponent(&quot;CN=client,OU=kerneluser,O=10Gen,L=New York City,ST=New York,C=US&quot;);
+
+// Connect using X509 authentication
+MongoClient.connect(f('mongodb://%s@server:27017/test?authMechanism=MONGODB-X509&amp;ssl=true', userName), {
+  server: {
+      sslKey:key
+    , sslCert:cert
+    , sslValidate:false
+  }
+}, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  db.close();
+});
+</code></pre>
+
+<p>See the MongoDB server
+<a href="http://docs.mongodb.org/manual/tutorial/configure-x509-client-authentication/#add-x-509-certificate-subject-as-a-user">x.509 tutorial</a> for
+more information about determining the subject name from the certificate.</p>
+
+<h2 id="against-the-specified-database">Against The Specified Database</h2>
+
+<h2 id="kerberos-gssapi-sspi">Kerberos (GSSAPI/SSPI)</h2>
+
+<p><a href="http://www.mongodb.com/products/mongodb-enterprise">MongoDB Enterprise</a> supports proxy authentication through a Kerberos service. The Node.js driver supports Kerberos on UNIX via the MIT Kerberos library and on Windows via the SSPI API.</p>
+
+<p>Below is an example on how to connect to MongoDB using Kerberos for UNIX.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
+
+// KDC Server
+var server = &quot;kerberos.example.com&quot;;
+var principal = &quot;drivers@KERBEROS.EXAMPLE.COM&quot;;
+var urlEncodedPrincipal = encodeURIComponent(principal);
+
+// Let's write the actual connection code
+MongoClient.connect(format(&quot;mongodb://%s@%s/kerberos?authMechanism=GSSAPI&amp;gssapiServiceName=mongodb&quot;, urlEncodedPrincipal, server), function(err, db) {
+  assert.equal(null, err);
+
+  db.close();
+  test.done();
+});
+</code></pre>
+
+<p><div class="admonition note">
+<h5 class="admonition-title">Note</h5>
+<p>The method refers to the <code>GSSAPI</code> authentication mechanism instead of <code>Kerberos</code> because technically the driver is authenticating via the
+<a href="https://tools.ietf.org/html/rfc4752">GSSAPI</a> SASL mechanism.</p>
+
+</div>
+</p>
+
+<h2 id="ldap-plain">LDAP (PLAIN)</h2>
+
+<p><a href="http://www.mongodb.com/products/mongodb-enterprise">MongoDB Enterprise</a> supports proxy authentication through a Lightweight Directory
+Access Protocol (LDAP) service.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
+
+// LDAP Server
+var server = &quot;ldap.example.com&quot;;
+var user = &quot;ldap-user&quot;;
+var pass = &quot;ldap-password&quot;;
+
+// Url
+var url = format(&quot;mongodb://%s:%s@%s/test?authMechanism=PLAIN&amp;maxPoolSize=1&quot;, user, pass, server);
+
+// Let's write the actual connection code
+MongoClient.connect(url, function(err, db) {
+  test.equal(null, err);    
+
+  db.close();
+  test.done();
+});
+</code></pre>
+
+<p><div class="admonition note">
+<h5 class="admonition-title">Note</h5>
+<p>The method refers to the <code>plain</code> authentication mechanism instead of <code>LDAP</code> because technically the driver is authenticating via the <a href="https://www.ietf.org/rfc/rfc4616.txt">PLAIN</a> SASL mechanism.</p>
+
+</div>
+</p>
 
 
 
@@ -1315,6 +1280,17 @@ $ git checkout -b myNewFeature
 
 <div id="btnv">
   
+  <div class="pull-left">
+  <a class="navigation prev" href="/mongo-nodejs-driver/2.0/reference/connecting/ssl/">
+      <i class="fa fa-long-arrow-left"> </i> SSL
+  </a>
+  </div>
+  
+  
+  <div class="pull-right">
+  <a class="navigation next" href="/mongo-nodejs-driver/2.0/reference/crud/">
+    CRUD Operations <i class="fa fa-long-arrow-right"> </i>
+  </a>
   
 </div>
 </div>
@@ -1328,10 +1304,14 @@ $ git checkout -b myNewFeature
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#issues-help">Issues &amp; Help</a>
+<li><a href="#authentication">Authentication</a>
 <ul>
-<li><a href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
-<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#scram-sha-1">SCRAM-SHA-1</a></li>
+<li><a href="#mongodb-cr">MONGODB-CR</a></li>
+<li><a href="#x509">X509</a></li>
+<li><a href="#against-the-specified-database">Against The Specified Database</a></li>
+<li><a href="#kerberos-gssapi-sspi">Kerberos (GSSAPI/SSPI)</a></li>
+<li><a href="#ldap-plain">LDAP (PLAIN)</a></li>
 </ul></li>
 </ul>
 </nav>

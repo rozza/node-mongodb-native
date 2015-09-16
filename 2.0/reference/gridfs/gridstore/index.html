@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/mongo-nodejs-driver/2.0/img/favicon.png">
 
-    <title>Issues &amp; Help</title>
+    <title>GridStore</title>
 
     <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -409,113 +409,44 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
 
-
-        
-          
+  
+    
+    
+    
+      
+      
+      
         
       
     
     
+  
+  
+
+
+        
       
+    
     
   
 
 
         
-          
-        
       
     
       
       
         
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
       
     
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -562,17 +493,6 @@
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
   
 
 
@@ -760,16 +680,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/mongo-nodejs-driver/2.0/reference/" class="">
       <i class='fa fa-book'></i>
       <span>Reference</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -936,16 +858,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l2 ">
+
+<li class="toctree-l2  current">
   <a href="/mongo-nodejs-driver/2.0/reference/gridfs/" class="">
       <i class='fa'></i>
       <span>GridFS</span>
       
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -962,6 +886,8 @@
 
 
 
+
+  
 
 
 
@@ -1147,8 +1073,6 @@
 
 
 
-  
-
 
 
 
@@ -1236,7 +1160,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/issues-help.md" target="_blank" title="Edit issues-help.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/reference/gridfs/gridstore.md" target="_blank" title="Edit reference/gridfs/gridstore.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1253,60 +1177,181 @@
   
   
   
-  
-  
-  <li>Issues &amp; Help</li>
+  <li><a href="/mongo-nodejs-driver/2.0/reference/">Reference</a> <i class="fa fa-angle-right"></i></li>
+  <li><a href="/mongo-nodejs-driver/2.0/reference/gridfs/">GridFS</a> <i class="fa fa-angle-right"></i></li>
+  <li>GridStore</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="issues-help">Issues &amp; Help</h1>
+<h2 id="gridfs">GridFS</h2>
 
-<p>We are lucky to have a vibrant MongoDB Java community with lots of varying
-experience of using the Java driver.  We often find the quickest way to get support for
-general questions is through the <a href="http://groups.google.com/group/mongodb-user">mongodb-user google group</a>
-or through <a href="http://stackoverflow.com/questions/tagged/mongodb+java">stackoverflow</a>.  Please also
-refer to our own <a href="http://www.mongodb.org/about/support">support channels</a> documentation.</p>
+<p>GridFS is a specification for storing and retrieving files that exceed the BSON-document size limit of 16MB.</p>
 
-<h2 id="bugs-feature-requests">Bugs / Feature Requests</h2>
+<p>Instead of storing a file in a single document, GridFS divides a file into parts, or chunks, and stores each of those chunks as a separate document. By default GridFS limits chunk size to 255k. GridFS uses two collections to store files. The chunks collection stores the file chunks, and the files collection stores the file metadata.</p>
 
-<p>If you think you’ve found a bug or want to see a new feature in the Java driver,
-please open a case in our issue management tool, JIRA:</p>
+<p>When you query a GridFS store for a file, the driver or client will reassemble the chunks as needed. GridFS is useful not only for storing files that exceed 16MB but also for storing any files for which you want access without having to load the entire file into memory.</p>
+
+<p><div class="admonition note">
+<h5 class="admonition-title">Note</h5>
+<p>For more information about GridFS see the <a href="http://docs.mongodb.org/manual/core/gridfs/">MongoDB GridFS documentation</a>.</p>
+
+</div>
+</p>
+
+<p>GridStore is a single file inside GridFS that can be managed by the script.</p>
+
+<h2 id="open-a-gridfs-file">Open a GridFS file</h2>
+
+<p>Opening a GridStore (a single file in GridFS) is a bit similar to opening a database. At first you need to create a GridStore object and then <code>open</code> it.</p>
+
+<pre><code class="language-js">var gs = new GridStore(db, filename, mode[, options])
+</code></pre>
+
+<p>Where</p>
 
 <ul>
-<li><a href="https://jira.mongodb.org">Create an account and login</a>.</li>
-<li>Navigate to <a href="https://jira.mongodb.org/browse/NODE">the NODE project</a>.</li>
-<li>Click <strong>Create Issue</strong> - Please provide as much information as possible about the issue type and how to reproduce it.</li>
+<li><code>db</code> is the database object</li>
+<li><code>filename</code> is the name of the file in GridFS that needs to be accessed/created</li>
+<li><code>mode</code> indicated the operation, can be one of:
+
+<ul>
+<li>&ldquo;r&rdquo; (Read): Looks for the file information in fs.files collection, or creates a new id for this object.</li>
+<li>&ldquo;w&rdquo; (Write): Erases all chunks if the file already exist.</li>
+</ul></li>
+<li><code>options</code> can be used to specify some metadata for the file, for example <code>content_type</code>, <code>metadata</code> and <code>chunk_size</code></li>
 </ul>
 
-<p>Bug reports in JIRA for the Node.js driver and the Core Server (i.e. SERVER) project are <strong>public</strong>.</p>
+<p>Example:</p>
 
-<p>If you’ve identified a security vulnerability in a driver or any other
-MongoDB project, please report it according to the <a href="http://docs.mongodb.org/manual/tutorial/create-a-vulnerability-report">instructions here</a>.</p>
-
-<h2 id="pull-requests">Pull Requests</h2>
-
-<p>We are happy to accept contributions to help improve the driver.
-We will guide user contributions to ensure they meet the standards of the codebase.
-Please ensure that any pull requests include documentation, tests and also pass
-a the gradle checks.</p>
-
-<p>To get started check out the source and work on a branch:</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/mongodb/node-mongodb-native.git
-$ cd node-mongodb-native
-$ npm install
-$ git checkout -b myNewFeature
+<pre><code class="language-js">var gs = new GridStore(db, &quot;test.png&quot;, &quot;w&quot;, {
+  &quot;content_type&quot;: &quot;image/png&quot;,
+  &quot;metadata&quot;:{
+      &quot;author&quot;: &quot;Daniel&quot;
+  },
+  &quot;chunk_size&quot;: 1024*4
+});
 </code></pre>
 
-<p>Ensure you code passes the test suite. Before running the test suite make sure you have the <code>mongod</code> executable on your current path.</p>
+<p>After a GridStore object is created, it needs to be opened.</p>
 
-<p>Run the functional test suite.</p>
-
-<pre><code class="language-bash">$ node test/runner.js -t functional
+<pre><code class="language-js">gs.open(function(err, gs) {
+  // gs is the intialized GridStore object
+});
 </code></pre>
+
+<p>Opened GridStore objects have a set of useful exposed properties</p>
+
+<ul>
+<li><code>gs.length</code> - length of the file in bytes</li>
+<li><code>gs.contentType</code> - the content type for the file</li>
+<li><code>gs.uploadDate</code> - when the file was uploaded</li>
+<li><code>gs.metadata</code> - metadata that was saved with the file</li>
+<li><code>gs.chunkSize</code> - chunk size</li>
+</ul>
+
+<p>Example</p>
+
+<pre><code class="language-js">gs.open(function(err, gs){
+  console.log(&quot;this file was uploaded at &quot;+gs.uploadDate);
+});
+</code></pre>
+
+<h2 id="writing-to-gridfs">Writing to GridFS</h2>
+
+<p>Writing can be done with <code>write</code></p>
+
+<pre><code class="language-js">gs.write(data, callback)
+</code></pre>
+
+<p>where <code>data</code> is a <code>Buffer</code> or a string, callback gets two parameters - an error object (if error occured) and result value which indicates if the write was successful or not.</p>
+
+<p>While the GridStore is not closed, every write is appended to the opened GridStore.</p>
+
+<h2 id="writing-a-file-to-gridfs">Writing a file to GridFS</h2>
+
+<p>This function opens the GridStore, streams the contents of the file into GridStore, and closes the GridStore.</p>
+
+<pre><code class="language-js">gs.writeFile( file, callback )
+</code></pre>
+
+<p>where</p>
+
+<ul>
+<li><code>file</code> is a file descriptor, or a string file path</li>
+<li><code>callback</code> is a function with two parameters - error object (if error occured) and the GridStore object.</li>
+</ul>
+
+<h2 id="reading-from-a-gridfs-file">Reading from a GridFS file</h2>
+
+<p>Reading from GridStore can be done with <code>read</code></p>
+
+<pre><code class="language-js">gs.read([size], callback)
+</code></pre>
+
+<p>where</p>
+
+<ul>
+<li><code>size</code> is the length of the data to be read</li>
+<li><code>callback</code> is a callback function with two parameters - error object (if an error occured) and data (binary string)</li>
+</ul>
+
+<h2 id="streaming-from-gridfs">Streaming from GridFS</h2>
+
+<p>You can stream data as it comes from the database using <code>stream</code></p>
+
+<pre><code class="language-js">gs.stream()
+</code></pre>
+
+<p>The function returns <a href="http://nodejs.org/docs/v0.4.12/api/streams.html#readable_Stream">read stream</a> based on this GridStore file. It supports the events &lsquo;read&rsquo;, &lsquo;error&rsquo;, &lsquo;close&rsquo; and &lsquo;end&rsquo;.</p>
+
+<h2 id="delete-a-gridfs-file">Delete a GridFS file</h2>
+
+<p>GridStore files can be unlinked with <code>unlink</code></p>
+
+<pre><code class="language-js">GridStore.unlink(db, name, callback)
+</code></pre>
+
+<p>Where</p>
+
+<ul>
+<li><code>db</code> is the database object</li>
+<li><code>name</code> is either the name of a GridStore object or an array of GridStore object names</li>
+<li><code>callback</code> is the callback function</li>
+</ul>
+
+<h2 id="closing-a-gridfs-file">Closing a GridFS file</h2>
+
+<p>GridStore needs to be closed after usage. This can be done with <code>close</code></p>
+
+<pre><code class="language-js">gs.close(callback)
+</code></pre>
+
+<h2 id="check-if-a-gridfs-file-exists">Check if a GridFS file exists</h2>
+
+<p>Checking if a file exists in GridFS can be done with <code>exist</code></p>
+
+<pre><code class="language-js">GridStore.exist(db, filename, callback)
+</code></pre>
+
+<p>Where</p>
+
+<ul>
+<li><code>db</code> is the database object</li>
+<li><code>filename</code> is the name of the file to be checked or a regular expression</li>
+<li><code>callback</code> is a callback function with two parameters - an error object (if an error occured) and a boolean value indicating if the file exists or not</li>
+</ul>
+
+<h2 id="seek-to-a-specific-position-for-reading">Seek to a Specific position for Reading</h2>
+
+<p>Seeking can be done with <code>seek</code></p>
+
+<pre><code class="language-js">gs.seek(position);
+</code></pre>
+
+<p>This function moves the internal pointer to the specified position.</p>
 
 
 
@@ -1315,6 +1360,17 @@ $ git checkout -b myNewFeature
 
 <div id="btnv">
   
+  <div class="pull-left">
+  <a class="navigation prev" href="/mongo-nodejs-driver/2.0/reference/crud/">
+      <i class="fa fa-long-arrow-left"> </i> CRUD Operations
+  </a>
+  </div>
+  
+  
+  <div class="pull-right">
+  <a class="navigation next" href="/mongo-nodejs-driver/2.0/reference/management/">
+    Management <i class="fa fa-long-arrow-right"> </i>
+  </a>
   
 </div>
 </div>
@@ -1328,10 +1384,18 @@ $ git checkout -b myNewFeature
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#issues-help">Issues &amp; Help</a>
+<li>
 <ul>
-<li><a href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
-<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#gridfs">GridFS</a></li>
+<li><a href="#open-a-gridfs-file">Open a GridFS file</a></li>
+<li><a href="#writing-to-gridfs">Writing to GridFS</a></li>
+<li><a href="#writing-a-file-to-gridfs">Writing a file to GridFS</a></li>
+<li><a href="#reading-from-a-gridfs-file">Reading from a GridFS file</a></li>
+<li><a href="#streaming-from-gridfs">Streaming from GridFS</a></li>
+<li><a href="#delete-a-gridfs-file">Delete a GridFS file</a></li>
+<li><a href="#closing-a-gridfs-file">Closing a GridFS file</a></li>
+<li><a href="#check-if-a-gridfs-file-exists">Check if a GridFS file exists</a></li>
+<li><a href="#seek-to-a-specific-position-for-reading">Seek to a Specific position for Reading</a></li>
 </ul></li>
 </ul>
 </nav>

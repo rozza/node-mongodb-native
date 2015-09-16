@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/mongo-nodejs-driver/2.0/img/favicon.png">
 
-    <title>Issues &amp; Help</title>
+    <title>Quick Tour</title>
 
     <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/mongo-nodejs-driver/2.0/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -198,15 +198,27 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
+    
+      
+    
+  
+  
 
 
         
-          
-        
       
     
-    
-      
     
   
 
@@ -228,294 +240,16 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
     
       
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
-    
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -562,17 +296,6 @@
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
   
 
 
@@ -671,16 +394,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/mongo-nodejs-driver/2.0/getting-started/" class="">
       <i class='fa fa-road'></i>
       <span>Getting Started</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -726,6 +451,8 @@
 
 
 
+
+  
 
 
 
@@ -1147,8 +874,6 @@
 
 
 
-  
-
 
 
 
@@ -1236,7 +961,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/issues-help.md" target="_blank" title="Edit issues-help.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/node-mongodb-native/blob/2.0/docs/reference/content/getting-started/quick-tour.md" target="_blank" title="Edit getting-started/quick-tour.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1254,59 +979,257 @@
   
   
   
-  
-  <li>Issues &amp; Help</li>
+  <li><a href="/mongo-nodejs-driver/2.0/getting-started/">Getting Started</a> <i class="fa fa-angle-right"></i></li>
+  <li>Quick Tour</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="issues-help">Issues &amp; Help</h1>
+<h1 id="quickstart">QuickStart</h1>
 
-<p>We are lucky to have a vibrant MongoDB Java community with lots of varying
-experience of using the Java driver.  We often find the quickest way to get support for
-general questions is through the <a href="http://groups.google.com/group/mongodb-user">mongodb-user google group</a>
-or through <a href="http://stackoverflow.com/questions/tagged/mongodb+java">stackoverflow</a>.  Please also
-refer to our own <a href="http://www.mongodb.org/about/support">support channels</a> documentation.</p>
+<p>The quick start guide will show you how to set up a simple application using node.js and MongoDB. It scope is only how to set up the driver and perform the simple crud operations. For more inn depth coverage we encourage reading the tutorials.</p>
 
-<h2 id="bugs-feature-requests">Bugs / Feature Requests</h2>
+<h2 id="installing-mongodb-node-js-driver-using-npm">Installing MongoDB Node.js driver using NPM</h2>
 
-<p>If you think you’ve found a bug or want to see a new feature in the Java driver,
-please open a case in our issue management tool, JIRA:</p>
+<p>Installing the MongoDB Node.js driver using NPM is very easy. First you need to ensure you have Node.js and NPM correctly set up and in your path. Installing the driver is as easy as.</p>
+
+<pre><code class="language-js">npm install mongodb
+</code></pre>
+
+<h2 id="create-the-package-json-file">Create the package.json file</h2>
+
+<p>Let&rsquo;s create a directory where our application will live. In our case we will put this under our projects directory.</p>
+
+<pre><code>mkdir myproject
+cd myproject
+</code></pre>
+
+<p>Enter the following command and answer the questions to create the initial structure for your new project</p>
+
+<pre><code>npm init
+</code></pre>
+
+<p>Next we install the driver dependency.</p>
+
+<pre><code>npm install mongodb --save
+</code></pre>
+
+<p>You should see <strong>NPM</strong> download a lot of files. Once it&rsquo;s done you&rsquo;ll find all the downloaded packages under the <strong>node_modules</strong> directory.</p>
+
+<h2 id="booting-up-a-mongodb-server">Booting up a MongoDB Server</h2>
+
+<p>Let&rsquo;s boot up a MongoDB server instance. Download the right MongoDB version from <a href="http://www.mongodb.org">MongoDB</a>, open a new shell or command line and ensure the <strong>mongod</strong> command is in the shell or command line path. Now let&rsquo;s create a database directory (in our case under <strong>/data</strong>).</p>
+
+<pre><code>mongod --dbpath=/data --port 27017
+</code></pre>
+
+<p>You should see the <strong>mongod</strong> process start up and print some status information.</p>
+
+<h2 id="connecting-to-mongodb">Connecting to MongoDB</h2>
+
+<p>Let&rsquo;s create a new <strong>app.js</strong> file that we will use to show the basic CRUD operations using the MongoDB driver.</p>
+
+<p>First let&rsquo;s add code to connect to the server and the database <strong>myproject</strong>.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  db.close();
+});
+</code></pre>
+
+<p>Given that you booted up the <strong>mongod</strong> process earlier the application should connect successfully and print <strong>Connected correctly to server</strong> to the console.</p>
+
+<p>Let&rsquo;s Add some code to show the different CRUD operations available.</p>
+
+<h2 id="inserting-a-document">Inserting a Document</h2>
+
+<p>Let&rsquo;s create a function that will insert some documents for us.</p>
+
+<pre><code class="language-js">var insertDocuments = function(db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents');
+  // Insert some documents
+  collection.insertMany([
+    {a : 1}, {a : 2}, {a : 3}
+  ], function(err, result) {
+    assert.equal(err, null);
+    assert.equal(3, result.result.n);
+    assert.equal(3, result.ops.length);
+    console.log(&quot;Inserted 3 documents into the document collection&quot;);
+    callback(result);
+  });
+}
+</code></pre>
+
+<p>The insert command will return a results object that contains several fields that might be useful.</p>
 
 <ul>
-<li><a href="https://jira.mongodb.org">Create an account and login</a>.</li>
-<li>Navigate to <a href="https://jira.mongodb.org/browse/NODE">the NODE project</a>.</li>
-<li>Click <strong>Create Issue</strong> - Please provide as much information as possible about the issue type and how to reproduce it.</li>
+<li><strong>result</strong> Contains the result document from MongoDB</li>
+<li><strong>ops</strong> Contains the documents inserted with added <strong>_id</strong> fields</li>
+<li><strong>connection</strong> Contains the connection used to perform the insert</li>
 </ul>
 
-<p>Bug reports in JIRA for the Node.js driver and the Core Server (i.e. SERVER) project are <strong>public</strong>.</p>
+<p>Let&rsquo;s add call the <strong>insertDocuments</strong> command to the <strong>MongoClient.connect</strong> method callback.</p>
 
-<p>If you’ve identified a security vulnerability in a driver or any other
-MongoDB project, please report it according to the <a href="http://docs.mongodb.org/manual/tutorial/create-a-vulnerability-report">instructions here</a>.</p>
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
 
-<h2 id="pull-requests">Pull Requests</h2>
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
 
-<p>We are happy to accept contributions to help improve the driver.
-We will guide user contributions to ensure they meet the standards of the codebase.
-Please ensure that any pull requests include documentation, tests and also pass
-a the gradle checks.</p>
-
-<p>To get started check out the source and work on a branch:</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/mongodb/node-mongodb-native.git
-$ cd node-mongodb-native
-$ npm install
-$ git checkout -b myNewFeature
+  insertDocuments(db, function() {
+    db.close();
+  });
+});
 </code></pre>
 
-<p>Ensure you code passes the test suite. Before running the test suite make sure you have the <code>mongod</code> executable on your current path.</p>
+<p>We can now run the update <strong>app.js</strong> file.</p>
 
-<p>Run the functional test suite.</p>
-
-<pre><code class="language-bash">$ node test/runner.js -t functional
+<pre><code>node app.js
 </code></pre>
+
+<p>You should see the following output after running the <strong>app.js</strong> file.</p>
+
+<pre><code>Connected correctly to server
+Inserted 3 documents into the document collection
+</code></pre>
+
+<h2 id="updating-a-document">Updating a document</h2>
+
+<p>Let&rsquo;s look at how to do a simple document update by adding a new field <strong>b</strong> to the document that has the field <strong>a</strong> set to <strong>2</strong>.</p>
+
+<pre><code class="language-js">var updateDocument = function(db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents');
+  // Update document where a is 2, set b equal to 1
+  collection.updateOne({ a : 2 }
+    , { $set: { b : 1 } }, function(err, result) {
+    assert.equal(err, null);
+    assert.equal(1, result.result.n);
+    console.log(&quot;Updated the document with the field a equal to 2&quot;);
+    callback(result);
+  });  
+}
+</code></pre>
+
+<p>The method will update the first document where the field <strong>a</strong> is equal to <strong>2</strong> by adding a new field <strong>b</strong> to the document set to <strong>1</strong>. Let&rsquo;s update the callback function from <strong>MongoClient.connect</strong> to include the update method.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  insertDocuments(db, function() {
+    updateDocument(db, function() {
+      db.close();
+    });
+  });
+});
+</code></pre>
+
+<h2 id="remove-a-document">Remove a document</h2>
+
+<p>Next lets remove the document where the field <strong>a</strong> equals to <strong>3</strong>.</p>
+
+<pre><code class="language-js">var removeDocument = function(db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents');
+  // Insert some documents
+  collection.deleteOne({ a : 3 }, function(err, result) {
+    assert.equal(err, null);
+    assert.equal(1, result.result.n);
+    console.log(&quot;Removed the document with the field a equal to 3&quot;);
+    callback(result);
+  });    
+}
+</code></pre>
+
+<p>This will remove the first document where the field <strong>a</strong> equals to <strong>3</strong>. Let&rsquo;s add the method to the <strong>MongoClient.connect</strong> callback function.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  insertDocuments(db, function() {
+    updateDocument(db, function() {
+      removeDocument(db, function() {
+        db.close();
+      });
+    });
+  });
+});
+</code></pre>
+
+<p>Finally let&rsquo;s retrieve all the documents using a simple find.</p>
+
+<h2 id="find-all-documents">Find All Documents</h2>
+
+<p>We will finish up the Quickstart CRUD methods by performing a simple query that returns all the documents matching the query.</p>
+
+<pre><code class="language-js">var findDocuments = function(db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents');
+  // Find some documents
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    assert.equal(2, docs.length);
+    console.log(&quot;Found the following records&quot;);
+    console.dir(docs)
+    callback(docs);
+  });      
+}
+</code></pre>
+
+<p>This query will return all the documents in the <strong>documents</strong> collection. Since we removed a document the total documents returned is <strong>2</strong>. Finally let&rsquo;s add the findDocument method to the <strong>MongoClient.connect</strong> callback.</p>
+
+<pre><code class="language-js">var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log(&quot;Connected correctly to server&quot;);
+
+  insertDocuments(db, function() {
+    updateDocument(db, function() {
+      removeDocument(db, function() {
+        findDocuments(db, function() {
+          db.close();
+        });
+      });
+    });
+  });
+});
+</code></pre>
+
+<p>This concludes the QuickStart of connecting and performing some Basic operations using the MongoDB Node.js driver. For more detailed information you can look at the tutorials covering more specific topics of interest.</p>
 
 
 
@@ -1314,6 +1237,12 @@ $ git checkout -b myNewFeature
 
 
 <div id="btnv">
+  
+  <div class="pull-left">
+  <a class="navigation prev" href="/mongo-nodejs-driver/2.0/getting-started/installation-guide/">
+      <i class="fa fa-long-arrow-left"> </i> Installation Guide
+  </a>
+  </div>
   
   
 </div>
@@ -1328,10 +1257,16 @@ $ git checkout -b myNewFeature
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#issues-help">Issues &amp; Help</a>
+<li><a href="#quickstart">QuickStart</a>
 <ul>
-<li><a href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
-<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#installing-mongodb-node-js-driver-using-npm">Installing MongoDB Node.js driver using NPM</a></li>
+<li><a href="#create-the-package-json-file">Create the package.json file</a></li>
+<li><a href="#booting-up-a-mongodb-server">Booting up a MongoDB Server</a></li>
+<li><a href="#connecting-to-mongodb">Connecting to MongoDB</a></li>
+<li><a href="#inserting-a-document">Inserting a Document</a></li>
+<li><a href="#updating-a-document">Updating a document</a></li>
+<li><a href="#remove-a-document">Remove a document</a></li>
+<li><a href="#find-all-documents">Find All Documents</a></li>
 </ul></li>
 </ul>
 </nav>
